@@ -1,0 +1,10 @@
+"use strict";
+const express_1 = require("express");
+const empresa_controller_1 = require("../controllers/empresa.controller");
+const router = express_1.Router();
+router.get('/empresa', empresa_controller_1.getAllEmpresas);
+router.get('/empresa/:codigo', empresa_controller_1.getEmpresaById);
+router.post('/empresa', empresa_controller_1.addEmpresa);
+router.put('/empresa/:codigo', empresa_controller_1.updateEmpresa);
+router.delete('/empresa/:codigo', empresa_controller_1.deleteEmpresa);
+module.exports = router;
