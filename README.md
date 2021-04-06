@@ -30,7 +30,7 @@ npm run build //compila el proyecto a js
 ```
 + Iniciar el servidor 
 ```
-npm run start //llama ar archivo index.js ubicado en la carpeta dist
+npm run start //llama al archivo index.js ubicado en la carpeta dist
 ```
 + Ejecutar servidor en modo de desarrollo
 
