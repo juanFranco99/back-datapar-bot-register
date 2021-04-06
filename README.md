@@ -35,5 +35,5 @@ npm run start //llama al archivo index.js ubicado en la carpeta dist
 + Ejecutar servidor en modo de desarrollo
 
 ```
-npm run dev //compila el proyecto a js luego ejecuta el archivo indes.js
+npm run dev //compila el proyecto a js luego ejecuta el archivo index.js
 ```
