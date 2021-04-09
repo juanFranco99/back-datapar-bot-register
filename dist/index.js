@@ -10,6 +10,7 @@ require("reflect-metadata");
 const typeorm_1 = require("typeorm");
 //-----------IMPORT ROUTES-----------//
 const empresa_route_1 = __importDefault(require("./routes/empresa.route"));
+const entidad_route_1 = __importDefault(require("./routes/entidad.route"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -28,6 +29,7 @@ class Server {
     //-------------ROUTES--------------//
     routes() {
         this.app.use('/empresa', empresa_route_1.default);
+        this.app.use('/entidad', entidad_route_1.default);
     }
     //Inicializar
     start() {
