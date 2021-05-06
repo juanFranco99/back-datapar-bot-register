@@ -1,10 +1,13 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Empresa } from "./empresa";
 
 @Entity({name: 'entidad'})
 export class Entidad{
-    @PrimaryColumn({name: 'id'})
-    codigo: number;//codigo usuario dolphin
+    @PrimaryGeneratedColumn({name: 'id_interno'})
+    codigo: number;
+
+    @Column({name: 'id'})
+    codigo_dolphin: number;//codigo usuario dolphin
 
     @Column({name: 'telefono'})
     telefono: string;

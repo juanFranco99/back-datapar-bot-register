@@ -9,6 +9,7 @@ import EmpRoutes from "./routes/empresa.route";
 import EntidadRoute from "./routes/entidad.route";
 import UsuarioRoutes from "./routes/usuario.route";
 import authRoutes from "./routes/auth.route";
+import dolphinCrudRoutes from "./routes/dolphin-crud.route";
 
 class Server {
 
@@ -36,6 +37,7 @@ class Server {
         this.app.use('/entidad', EntidadRoute);
         this.app.use('/usuario', UsuarioRoutes);
         this.app.use('/login', authRoutes);
+        this.app.use('/dolphin', dolphinCrudRoutes);
     }
 
     //Inicializar

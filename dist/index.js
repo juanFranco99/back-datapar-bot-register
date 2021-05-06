@@ -13,6 +13,7 @@ const empresa_route_1 = __importDefault(require("./routes/empresa.route"));
 const entidad_route_1 = __importDefault(require("./routes/entidad.route"));
 const usuario_route_1 = __importDefault(require("./routes/usuario.route"));
 const auth_route_1 = __importDefault(require("./routes/auth.route"));
+const dolphin_crud_route_1 = __importDefault(require("./routes/dolphin-crud.route"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -34,6 +35,7 @@ class Server {
         this.app.use('/entidad', entidad_route_1.default);
         this.app.use('/usuario', usuario_route_1.default);
         this.app.use('/login', auth_route_1.default);
+        this.app.use('/dolphin', dolphin_crud_route_1.default);
     }
     //Inicializar
     start() {

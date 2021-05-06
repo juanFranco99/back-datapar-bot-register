@@ -15,9 +15,13 @@ const empresa_1 = require("./empresa");
 let Entidad = class Entidad {
 };
 __decorate([
-    typeorm_1.PrimaryColumn({ name: 'id' }),
+    typeorm_1.PrimaryGeneratedColumn({ name: 'id_interno' }),
     __metadata("design:type", Number)
 ], Entidad.prototype, "codigo", void 0);
+__decorate([
+    typeorm_1.Column({ name: 'id' }),
+    __metadata("design:type", Number)
+], Entidad.prototype, "codigo_dolphin", void 0);
 __decorate([
     typeorm_1.Column({ name: 'telefono' }),
     __metadata("design:type", String)
