@@ -7,6 +7,8 @@ import { createConnection } from 'typeorm';
 //-----------IMPORT ROUTES-----------//
 import EmpRoutes from "./routes/empresa.route";
 import EntidadRoute from "./routes/entidad.route";
+import UsuarioRoutes from "./routes/usuario.route";
+import authRoutes from "./routes/auth.route";
 
 class Server {
 
@@ -32,6 +34,8 @@ class Server {
     routes(): void {
         this.app.use('/empresa', EmpRoutes);
         this.app.use('/entidad', EntidadRoute);
+        this.app.use('/usuario', UsuarioRoutes);
+        this.app.use('/login', authRoutes);
     }
 
     //Inicializar

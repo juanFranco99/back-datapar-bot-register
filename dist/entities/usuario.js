@@ -9,23 +9,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Empresa = void 0;
+exports.Usuario = void 0;
 const typeorm_1 = require("typeorm");
-let Empresa = class Empresa {
+let Usuario = class Usuario {
 };
 __decorate([
-    typeorm_1.PrimaryColumn({ name: 'id', unique: true }),
+    typeorm_1.PrimaryColumn(),
     __metadata("design:type", Number)
-], Empresa.prototype, "codigo", void 0);
+], Usuario.prototype, "username", void 0);
 __decorate([
     typeorm_1.Column({ name: 'nome' }),
     __metadata("design:type", String)
-], Empresa.prototype, "nombre", void 0);
+], Usuario.prototype, "nombre", void 0);
 __decorate([
-    typeorm_1.Column({ default: false }),
-    __metadata("design:type", Boolean)
-], Empresa.prototype, "habilitado", void 0);
-Empresa = __decorate([
-    typeorm_1.Entity({ name: 'empresa' })
-], Empresa);
-exports.Empresa = Empresa;
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Usuario.prototype, "email", void 0);
+__decorate([
+    typeorm_1.Column({ name: 'senha' }),
+    __metadata("design:type", String)
+], Usuario.prototype, "password", void 0);
+__decorate([
+    typeorm_1.Column(),
+    __metadata("design:type", String)
+], Usuario.prototype, "estado", void 0);
+Usuario = __decorate([
+    typeorm_1.Entity({ name: 'usuario' })
+], Usuario);
+exports.Usuario = Usuario;

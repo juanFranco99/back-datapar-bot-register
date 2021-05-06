@@ -11,6 +11,8 @@ const typeorm_1 = require("typeorm");
 //-----------IMPORT ROUTES-----------//
 const empresa_route_1 = __importDefault(require("./routes/empresa.route"));
 const entidad_route_1 = __importDefault(require("./routes/entidad.route"));
+const usuario_route_1 = __importDefault(require("./routes/usuario.route"));
+const auth_route_1 = __importDefault(require("./routes/auth.route"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -30,6 +32,8 @@ class Server {
     routes() {
         this.app.use('/empresa', empresa_route_1.default);
         this.app.use('/entidad', entidad_route_1.default);
+        this.app.use('/usuario', usuario_route_1.default);
+        this.app.use('/login', auth_route_1.default);
     }
     //Inicializar
     start() {

@@ -13,7 +13,8 @@ class EntidadController {
         let codigo = req.params.codigo;
         if (codigo) {
             try {
-                const entidad = await getRepository(Entidad).findOne(codigo);
+                
+                let entidad = await getRepository(Entidad).findOne(codigo);
                 return res.json(entidad);
             } catch (error) {
                 return res.json(error);

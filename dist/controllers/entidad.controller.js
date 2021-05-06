@@ -23,7 +23,7 @@ class EntidadController {
             let codigo = req.params.codigo;
             if (codigo) {
                 try {
-                    const entidad = yield typeorm_1.getRepository(entidad_1.Entidad).findOne(codigo);
+                    let entidad = yield typeorm_1.getRepository(entidad_1.Entidad).findOne(codigo);
                     return res.json(entidad);
                 }
                 catch (error) {

@@ -3,8 +3,8 @@
     "host": "localhost",
     "port": 5432,
     "username": "postgres",
-    "password": "passwd",
+    "password": "admin",
     "database": "botdatapar",
     "entities": ["dist/entities/**/*.js"],
-    "synchronize": true
+    "synchronize": false
 }

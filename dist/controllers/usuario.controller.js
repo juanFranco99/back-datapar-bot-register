@@ -9,52 +9,60 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const bcryptjs_1 = require("bcryptjs");
+const jsonwebtoken_1 = require("jsonwebtoken");
 const typeorm_1 = require("typeorm");
-const empresa_1 = require("../entities/empresa");
-class EmpresaController {
-    getAllEmpresas(req, res) {
+const usuario_1 = require("../entities/usuario");
+const SECRET_KEY = 'secretkey123456';
+class UsuarioController {
+    getAllUsuarios(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const empresas = yield typeorm_1.getRepository(empresa_1.Empresa).find();
-            return res.json(empresas);
+            const usuarios = yield typeorm_1.getRepository(usuario_1.Usuario).find();
+            return res.json(usuarios);
         });
     }
-    getEmpresaById(req, res) {
+    getUsuarioById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let codigo = req.params.codigo;
-            if (codigo) {
+            let username = req.params.username;
+            if (username) {
                 try {
-                    const empresa = yield typeorm_1.getRepository(empresa_1.Empresa).findOne(codigo);
-                    return res.json(empresa);
+                    const usuario = yield typeorm_1.getRepository(usuario_1.Usuario).findOne(username);
+                    return res.json(usuario);
                 }
                 catch (err) {
                     return res.json(err);
                 }
             }
             else {
-                return res.json({ error: 'Código no encontrado' });
+                return res.json({ error: 'Usuario no encontrado' });
             }
         });
     }
-    addEmpresa(req, res) {
+    addUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let empresaData = req.body;
+            let usuarioData = req.body;
+            const saltRounds = 2;
+            const salt = yield bcryptjs_1.genSaltSync(saltRounds);
+            const expireIn = 24 * 60 * 60;
+            usuarioData.password = yield bcryptjs_1.hashSync(req.body.password, salt);
             try {
-                const result = yield typeorm_1.getRepository(empresa_1.Empresa).save(empresaData);
-                return res.json(result);
+                const usuario = yield typeorm_1.getRepository(usuario_1.Usuario).save(usuarioData);
+                const accesTocken = jsonwebtoken_1.sign({ codigo: usuario.codigo }, SECRET_KEY, { expiresIn: expireIn });
+                return res.json(usuario);
             }
             catch (err) {
                 return res.status(500).json(err);
             }
         });
     }
-    updateEmpresa(req, res) {
+    updateUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let codigo = req.params.codigo;
-            const empresa = yield typeorm_1.getRepository(empresa_1.Empresa).findOne(codigo);
-            if (empresa) {
+            let username = req.params.username;
+            const usuario = yield typeorm_1.getRepository(usuario_1.Usuario).findOne(username);
+            if (usuario) {
                 try {
-                    typeorm_1.getRepository(empresa_1.Empresa).merge(empresa, req.body);
-                    const result = yield typeorm_1.getRepository(empresa_1.Empresa).save(empresa);
+                    typeorm_1.getRepository(usuario_1.Usuario).merge(usuario, req.body);
+                    const result = yield typeorm_1.getRepository(usuario_1.Usuario).save(usuario);
                     return res.json(result);
                 }
                 catch (error) {
@@ -62,16 +70,16 @@ class EmpresaController {
                 }
             }
             else {
-                return res.json({ error: 'Empresa no encontrada' });
+                return res.json({ error: 'Usuario no encontrada' });
             }
         });
     }
-    deleteEmpresa(req, res) {
+    deleteUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const codigo = req.params.codigo;
-            if (codigo) {
+            const username = req.params.username;
+            if (username) {
                 try {
-                    yield typeorm_1.getRepository(empresa_1.Empresa).delete(codigo);
+                    yield typeorm_1.getRepository(usuario_1.Usuario).delete(username);
                     return res.json({ info: 'Empresa eliminada' });
                 }
                 catch (error) {
@@ -84,5 +92,5 @@ class EmpresaController {
         });
     }
 }
-const empresaController = new EmpresaController();
-exports.default = empresaController;
+const usuarioController = new UsuarioController();
+exports.default = usuarioController;
