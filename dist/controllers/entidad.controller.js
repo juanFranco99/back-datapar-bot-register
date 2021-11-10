@@ -54,37 +54,44 @@ class EntidadController {
     }
     updateEntidad(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            let codigo = req.params.codigo;
-            const entidad = yield typeorm_1.getRepository(entidad_1.Entidad).findOne(codigo);
+            const codigoDolpin = req.body.codigo_dolphin;
+            const telefonoAntiguo = req.body.telefono_antiguo;
+            const empresa = req.body.empresa;
+            const entidad = yield typeorm_1.getRepository(entidad_1.Entidad)
+                .createQueryBuilder("entidad")
+                .where("entidad.id = :codigoDolpin and entidad.telefono = :telefono and entidad.empresa_id = :empresa ", { codigoDolpin: codigoDolpin, telefono: telefonoAntiguo, empresa: empresa })
+                .getOne();
             if (entidad) {
                 try {
                     typeorm_1.getRepository(entidad_1.Entidad).merge(entidad, req.body);
                     const result = yield typeorm_1.getRepository(entidad_1.Entidad).save(entidad);
-                    return res.json(result);
+                    return res.status(200).json(result);
                 }
                 catch (error) {
-                    return res.json(error);
+                    return res.status(500).json(error);
                 }
             }
             else {
-                return res.json({ error: 'Codigo no encontrado' });
+                return res.status(404).json({ error: 'Codigo no encontrado' });
             }
         });
     }
     deleteEntidad(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const codigo = req.params.codigo;
-            if (codigo) {
-                try {
-                    yield typeorm_1.getRepository(entidad_1.Entidad).delete(codigo);
-                    return res.json({ info: 'Entidad eliminada' });
-                }
-                catch (error) {
-                    return res.json(error);
-                }
+            const codigoDolpin = req.body.codigo_dolphin;
+            const telefono = req.body.telefono;
+            const empresa = req.body.empresa;
+            try {
+                yield typeorm_1.getConnection()
+                    .createQueryBuilder()
+                    .delete()
+                    .from(entidad_1.Entidad)
+                    .where("id = :codigoDolpin and telefono = :telefono and empresa_id = :empresa ", { codigoDolpin: codigoDolpin, telefono: telefono, empresa: empresa })
+                    .execute();
+                return res.status(200).json({ info: 'Eliminado con exito' });
             }
-            else {
-                return res.json({ error: 'Codigo no entonctrado' });
+            catch (error) {
+                return res.status(500).json(error);
             }
         });
     }

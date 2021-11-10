@@ -10,6 +10,8 @@ import EntidadRoute from "./routes/entidad.route";
 import UsuarioRoutes from "./routes/usuario.route";
 import authRoutes from "./routes/auth.route";
 import dolphinCrudRoutes from "./routes/dolphin-crud.route";
+import usuarioDolphinRoute from './routes/usuarioDolphin.route';
+import figlet from 'figlet';
 
 class Server {
 
@@ -38,12 +40,29 @@ class Server {
         this.app.use('/usuario', UsuarioRoutes);
         this.app.use('/login', authRoutes);
         this.app.use('/dolphin', dolphinCrudRoutes);
+        this.app.use('/usuaDolphin', usuarioDolphinRoute);
+    }
+
+    showfiglet(): void{
+        figlet('Datapar Bot', {
+            font: 'Slant',
+            horizontalLayout: 'default',
+            verticalLayout: 'default',
+          }, function (err, data) {
+            if (err) {
+              console.log('Something went wrong...');
+              console.dir(err);
+              return;
+            }
+            console.log(data);
+            console.log('Datapar Bot is running');
+          });
     }
 
     //Inicializar
     start() : void {
         this.app.listen(this.app.get('port'), () => {
-                console.log(`Server on port`, this.app.get('port'));
+            this.showfiglet();
         });
     }
 }

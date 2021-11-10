@@ -14,8 +14,8 @@ class EntidadRoute {
         this.router.get('/', entidad_controller_1.default.getAllEntidades);
         this.router.get('/:codigo', entidad_controller_1.default.getEntidadById);
         this.router.post('/', entidad_controller_1.default.addEntidad);
-        this.router.put('/:codigo', entidad_controller_1.default.updateEntidad);
-        this.router.delete('/:codigo', entidad_controller_1.default.deleteEntidad);
+        this.router.put('/', entidad_controller_1.default.updateEntidad);
+        this.router.delete('/', entidad_controller_1.default.deleteEntidad);
     }
 }
 const entidadRoute = new EntidadRoute();

@@ -9,8 +9,8 @@ const SECRET_KEY = 'secretkey123456';
 class AuthController {
 
     async login(req: Request, res: Response) {
-        /*let password = req.body.password;
-        let username = req.params.username;
+        let password = req.body.password;
+        let username = req.body.username;
         if (username) {
             try {
                 const usuario = await getRepository(Usuario).findOne(username);
@@ -22,18 +22,11 @@ class AuthController {
                     const expireIn = 24 * 60 * 60;
 
                     const accesTocken = sign(
-                        {user: usuario?.username },
+                        {username: usuario?.username },
                         SECRET_KEY,
                         {expiresIn: expireIn}
                     );
-
-                    const dataUser = {
-                        name: usuario?.nombre,
-                        email: usuario?.email,
-                        accessToken: accesTocken,
-                        expiresIn: expireIn
-                      }
-                    return res.json(dataUser);
+                    return res.json({token: accesTocken, usuario: usuario});
                 }else{
                     return res.status(500).json({error: 'Usuario o contraseña invaldidos'});
                 }
@@ -42,8 +35,8 @@ class AuthController {
                 return res.status(500).json(err);
             }
         } else {
-            return res.json({ error: 'Código no encontrado' });
-        }*/
+            return res.json({ error: 'usuario no encontrado' });
+        }
     }
 
 }

@@ -1,7 +1,7 @@
 import { Router } from "express";
-import  authController from "../controllers/Auth.controller";
+import usuaDolphin from "../controllers/usuarioDolphin.controller";
 
-class AuthRoutes {
+class UsuarioDolphinRoutes {
 
     public router: Router = Router();
 
@@ -11,13 +11,14 @@ class AuthRoutes {
 
     config(): void { 
     
-        this.router.post('/', authController.login);
+        this.router.get('/', usuaDolphin.getAllUsuarios);
         /*this.router.get('/:username', usuarioController.getUsuarioById);
         this.router.post('/', usuarioController.addUsuario);
         this.router.put('/:username', usuarioController.updateUsuario);
+        this.router.put('/perfil/:username', usuarioController.updatePerfil);
         this.router.delete('/:username', usuarioController.deleteUsuario);*/
     }
 }
 
-const authRoutes = new AuthRoutes();
-export default authRoutes.router;
+const usuarioDolphinRoutes = new UsuarioDolphinRoutes();
+export default usuarioDolphinRoutes.router;

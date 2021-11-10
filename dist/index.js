@@ -14,6 +14,8 @@ const entidad_route_1 = __importDefault(require("./routes/entidad.route"));
 const usuario_route_1 = __importDefault(require("./routes/usuario.route"));
 const auth_route_1 = __importDefault(require("./routes/auth.route"));
 const dolphin_crud_route_1 = __importDefault(require("./routes/dolphin-crud.route"));
+const usuarioDolphin_route_1 = __importDefault(require("./routes/usuarioDolphin.route"));
+const figlet_1 = __importDefault(require("figlet"));
 class Server {
     constructor() {
         this.app = express_1.default();
@@ -36,11 +38,27 @@ class Server {
         this.app.use('/usuario', usuario_route_1.default);
         this.app.use('/login', auth_route_1.default);
         this.app.use('/dolphin', dolphin_crud_route_1.default);
+        this.app.use('/usuaDolphin', usuarioDolphin_route_1.default);
+    }
+    showfiglet() {
+        figlet_1.default('Datapar Bot', {
+            font: 'Slant',
+            horizontalLayout: 'default',
+            verticalLayout: 'default',
+        }, function (err, data) {
+            if (err) {
+                console.log('Something went wrong...');
+                console.dir(err);
+                return;
+            }
+            console.log(data);
+            console.log('Datapar Bot is running');
+        });
     }
     //Inicializar
     start() {
         this.app.listen(this.app.get('port'), () => {
-            console.log(`Server on port`, this.app.get('port'));
+            this.showfiglet();
         });
     }
 }

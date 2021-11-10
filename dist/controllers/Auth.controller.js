@@ -9,45 +9,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const bcryptjs_1 = require("bcryptjs");
+const jsonwebtoken_1 = require("jsonwebtoken");
+const typeorm_1 = require("typeorm");
+const usuario_1 = require("../entities/usuario");
 const SECRET_KEY = 'secretkey123456';
 class AuthController {
     login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            /*let password = req.body.password;
-            let username = req.params.username;
+            let password = req.body.password;
+            let username = req.body.username;
             if (username) {
                 try {
-                    const usuario = await getRepository(Usuario).findOne(username);
-                    
-                    const resultPassword = compareSync(password, usuario?.password!);
-    
-                    if(resultPassword){
-                        
+                    const usuario = yield typeorm_1.getRepository(usuario_1.Usuario).findOne(username);
+                    const resultPassword = bcryptjs_1.compareSync(password, usuario === null || usuario === void 0 ? void 0 : usuario.password);
+                    if (resultPassword) {
                         const expireIn = 24 * 60 * 60;
-    
-                        const accesTocken = sign(
-                            {user: usuario?.username },
-                            SECRET_KEY,
-                            {expiresIn: expireIn}
-                        );
-    
-                        const dataUser = {
-                            name: usuario?.nombre,
-                            email: usuario?.email,
-                            accessToken: accesTocken,
-                            expiresIn: expireIn
-                          }
-                        return res.json(dataUser);
-                    }else{
-                        return res.status(500).json({error: 'Usuario o contraseña invaldidos'});
+                        const accesTocken = jsonwebtoken_1.sign({ username: usuario === null || usuario === void 0 ? void 0 : usuario.username }, SECRET_KEY, { expiresIn: expireIn });
+                        return res.json({ token: accesTocken, usuario: usuario });
                     }
-    
-                } catch (err) {
+                    else {
+                        return res.status(500).json({ error: 'Usuario o contraseña invaldidos' });
+                    }
+                }
+                catch (err) {
                     return res.status(500).json(err);
                 }
-            } else {
-                return res.json({ error: 'Código no encontrado' });
-            }*/
+            }
+            else {
+                return res.json({ error: 'usuario no encontrado' });
+            }
         });
     }
 }

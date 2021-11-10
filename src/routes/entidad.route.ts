@@ -13,8 +13,8 @@ class EntidadRoute {
         this.router.get('/', entidadController.getAllEntidades);
         this.router.get('/:codigo', entidadController.getEntidadById);
         this.router.post('/', entidadController.addEntidad);
-        this.router.put('/:codigo', entidadController.updateEntidad);
-        this.router.delete('/:codigo', entidadController.deleteEntidad); 
+        this.router.put('/', entidadController.updateEntidad);
+        this.router.delete('/', entidadController.deleteEntidad); 
     }
 
 }

@@ -13,7 +13,7 @@ const bcryptjs_1 = require("bcryptjs");
 const jsonwebtoken_1 = require("jsonwebtoken");
 const typeorm_1 = require("typeorm");
 const usuario_1 = require("../entities/usuario");
-const SECRET_KEY = 'secretkey123456';
+const SECRET_KEY = 'SUPERCLAVEBOTDATAPAR';
 class UsuarioController {
     getAllUsuarios(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -27,14 +27,19 @@ class UsuarioController {
             if (username) {
                 try {
                     const usuario = yield typeorm_1.getRepository(usuario_1.Usuario).findOne(username);
-                    return res.json(usuario);
+                    if (usuario) {
+                        return res.json(usuario);
+                    }
+                    else {
+                        return res.status(404).json({});
+                    }
                 }
                 catch (err) {
-                    return res.json(err);
+                    return res.status(404).json(err);
                 }
             }
             else {
-                return res.json({ error: 'Usuario no encontrado' });
+                return res.status(500).json({ error: 'Usuario no encontrado' });
             }
         });
     }
@@ -47,8 +52,8 @@ class UsuarioController {
             usuarioData.password = yield bcryptjs_1.hashSync(req.body.password, salt);
             try {
                 const usuario = yield typeorm_1.getRepository(usuario_1.Usuario).save(usuarioData);
-                const accesTocken = jsonwebtoken_1.sign({ codigo: usuario.codigo }, SECRET_KEY, { expiresIn: expireIn });
-                return res.json(usuario);
+                const accesTocken = jsonwebtoken_1.sign({ username: usuario.username }, SECRET_KEY, { expiresIn: expireIn });
+                return res.status(200).json({ usuario: usuario, token: accesTocken });
             }
             catch (err) {
                 return res.status(500).json(err);
@@ -58,10 +63,37 @@ class UsuarioController {
     updateUsuario(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let username = req.params.username;
+            let newData = req.body;
             const usuario = yield typeorm_1.getRepository(usuario_1.Usuario).findOne(username);
             if (usuario) {
                 try {
-                    typeorm_1.getRepository(usuario_1.Usuario).merge(usuario, req.body);
+                    typeorm_1.getRepository(usuario_1.Usuario).merge(usuario, newData);
+                    const result = yield typeorm_1.getRepository(usuario_1.Usuario).save(usuario);
+                    return res.json(result);
+                }
+                catch (error) {
+                    return res.json(error);
+                }
+            }
+            else {
+                return res.json({ error: 'Usuario no encontrada' });
+            }
+        });
+    }
+    updatePerfil(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let username = req.params.username;
+            let newUser = req.body;
+            const usuario = yield typeorm_1.getRepository(usuario_1.Usuario).findOne(username);
+            if (usuario) {
+                try {
+                    let password = req.body.password;
+                    if (password) {
+                        const saltRounds = 2;
+                        const salt = yield bcryptjs_1.genSaltSync(saltRounds);
+                        newUser.password = yield bcryptjs_1.hashSync(req.body.password, salt);
+                    }
+                    typeorm_1.getRepository(usuario_1.Usuario).merge(usuario, newUser);
                     const result = yield typeorm_1.getRepository(usuario_1.Usuario).save(usuario);
                     return res.json(result);
                 }

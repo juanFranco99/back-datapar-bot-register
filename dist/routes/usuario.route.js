@@ -15,6 +15,7 @@ class UsuarioRoutes {
         this.router.get('/:username', usuario_controller_1.default.getUsuarioById);
         this.router.post('/', usuario_controller_1.default.addUsuario);
         this.router.put('/:username', usuario_controller_1.default.updateUsuario);
+        this.router.put('/perfil/:username', usuario_controller_1.default.updatePerfil);
         this.router.delete('/:username', usuario_controller_1.default.deleteUsuario);
     }
 }

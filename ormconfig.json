@@ -1,10 +1,12 @@
-{
+[{
+    "name": "default",
     "type": "postgres",
-    "host": "localhost",
+    "host": "172.27.1.134",
     "port": 5432,
-    "username": "postgres",
-    "password": "admin",
-    "database": "botdatapar",
+    "username": "scpp",
+    "password": "superscpp",
+    "database": "testebot",
     "entities": ["dist/entities/**/*.js"],
     "synchronize": false
 }
+]

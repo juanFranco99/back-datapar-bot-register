@@ -10,13 +10,11 @@ class DolphinCrudRoute {
     }
 
     config(): void { 
-        this.router.get('/', dolphinCrudController.getAllEntidades);/* ----BUSCA TODAS LAS ENTIDADES DE TODAS LAS EMPRESAS */
-        this.router.get('/:codigoEmpresa', dolphinCrudController.getAllEntidadesByEmpresa); /* ----BUSCA TODAS LAS ENTIDADES DE AL EMPRESA */
-        this.router.get('/entidad/:codigo', dolphinCrudController.getEntidadByIdInterno);/* ----BUSCA LA ENTIDAD POR ID INTERNO */
-        this.router.get('/entidad/list/:codigoDolphin', dolphinCrudController.getEntidadByCodigoDolphin); /* ----BUSCA TODAS LAS ENTIDADES POR CODIGO DOLPHIN*/
-        this.router.post('/entidad', dolphinCrudController.addEntidad);/*AGREGAR NUEVA ENTIDAD */
-        this.router.put('/entidad/:codigo', dolphinCrudController.updateEntidad);/*ACTUALIZAR ENTIDAD */
-        this.router.delete('/entidad/:codigo', dolphinCrudController.deleteEntidad); /*ELLIMINAR ENTIDAD*/
+        this.router.get('/entidad', dolphinCrudController.getAllEntidades);
+        this.router.get('/entidad/:codigo', dolphinCrudController.getEntidadById);
+        this.router.post('/entidad', dolphinCrudController.addEntidad);
+        this.router.put('/entidad', dolphinCrudController.updateEntidad);
+        this.router.delete('/entidad', dolphinCrudController.deleteEntidad); 
     }
 
 }
