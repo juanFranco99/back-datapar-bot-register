@@ -1,11 +1,11 @@
 [{
     "name": "default",
     "type": "postgres",
-    "host": "172.27.1.134",
+    "host": "host",
     "port": 5432,
-    "username": "scpp",
-    "password": "superscpp",
-    "database": "testebot",
+    "username": "usuario",
+    "password": "contraseña",
+    "database": "nombre_base",
     "entities": ["dist/entities/**/*.js"],
     "synchronize": false
 }
